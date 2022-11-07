@@ -6,7 +6,7 @@
 /*   By: qlentz <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:39:13 by qlentz            #+#    #+#             */
-/*   Updated: 2022/11/07 13:25:24 by qlentz           ###   ########.fr       */
+/*   Updated: 2022/11/07 13:29:01 by qlentz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		ft_printhex(unsigned long n);
 int		ft_printhexcap(unsigned long n);
 int		ft_printptr(unsigned long n);
 int		ft_printf(const char *str, ...);
-int 	ft_isspace(int c);
+int		ft_isspace(int c);
 double	ft_atod(const char *str);
 
 #endif
