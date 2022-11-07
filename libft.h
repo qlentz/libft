@@ -6,7 +6,7 @@
 /*   By: qlentz <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:39:13 by qlentz            #+#    #+#             */
-/*   Updated: 2022/11/04 15:17:17 by qlentz           ###   ########.fr       */
+/*   Updated: 2022/11/07 13:25:24 by qlentz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*ft_strdup(const char *s);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
@@ -77,5 +78,7 @@ int		ft_printhex(unsigned long n);
 int		ft_printhexcap(unsigned long n);
 int		ft_printptr(unsigned long n);
 int		ft_printf(const char *str, ...);
+int 	ft_isspace(int c);
+double	ft_atod(const char *str);
 
 #endif
