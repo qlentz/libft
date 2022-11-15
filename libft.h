@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qlentz <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: qlentz <qlentz@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:39:13 by qlentz            #+#    #+#             */
-/*   Updated: 2022/11/07 13:29:01 by qlentz           ###   ########.fr       */
+/*   Updated: 2022/11/13 13:47:54 by qlentz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ int		ft_printptr(unsigned long n);
 int		ft_printf(const char *str, ...);
 int		ft_isspace(int c);
 double	ft_atod(const char *str);
+void	ft_free_tab(char **t);
 
 #endif
