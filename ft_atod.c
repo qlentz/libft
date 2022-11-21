@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qlentz <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: qlentz <qlentz@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:23:38 by qlentz            #+#    #+#             */
-/*   Updated: 2022/11/07 13:25:03 by qlentz           ###   ########.fr       */
+/*   Updated: 2022/11/21 13:28:39 by qlentz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double	ft_atod(const char *str)
+static double	pre_point(const char *str)
 {
 	double	d;
-	double	d2;
 
 	d = 0.0;
-	d2 = 0.0;
 	while (ft_isspace(*str))
+		str++;
+	if (*str == '-')
 		str++;
 	while (*str && *str <= '9' && *str >= '0')
 	{
@@ -27,6 +27,20 @@ double	ft_atod(const char *str)
 		d += *str - '0';
 		str++;
 	}
+	return (d);
+}
+
+static double	after_point(const char *str)
+{
+	double	d2;
+
+	d2 = 0.0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '-')
+		str++;
+	while (*str && *str <= '9' && *str >= '0')
+		str++;
 	if (*str == '.')
 		str++;
 	while (*str && *str <= '9' && *str >= '0')
@@ -38,5 +52,24 @@ double	ft_atod(const char *str)
 		d2 /= 10;
 		str--;
 	}
-	return (d + d2);
+	return (d2);
+}
+
+double	ft_atod(const char *str)
+{
+	double	d;
+	double	d2;
+	int		sign;
+
+	sign = 1;
+	d = pre_point(str);
+	d2 = after_point(str);
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '-')
+	{
+		str++;
+		sign *= -1;
+	}
+	return (sign * (d + d2));
 }
