@@ -6,12 +6,14 @@
 /*   By: qlentz <qlentz@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:39:13 by qlentz            #+#    #+#             */
-/*   Updated: 2022/11/13 13:47:54 by qlentz           ###   ########.fr       */
+/*   Updated: 2022/12/01 19:11:07 by qlentz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# define BUFFER_SIZE 100
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -81,5 +83,8 @@ int		ft_printf(const char *str, ...);
 int		ft_isspace(int c);
 double	ft_atod(const char *str);
 void	ft_free_tab(char **t);
+void	free_data(char **str);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*get_next_line(int fd);
 
 #endif
