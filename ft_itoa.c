@@ -31,9 +31,9 @@ static int	ft_intsize(int n)
 
 char	*ft_itoa(int n)
 {
-	char	*s;
-	int		i;
-	long	n2;
+	char		*s;
+	int			i;
+	long long	n2;
 
 	n2 = n;
 	i = ft_intsize(n2);

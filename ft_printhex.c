@@ -14,21 +14,18 @@
 
 int	ft_printhex(unsigned long nb)
 {
-	int			size;
+	int	size;
+	int	last;
 
 	size = 0;
 	if (nb > 15)
-	{
-		size += ft_printhex((nb / 16));
-		size += ft_printhex((nb % 16));
-	}
-	else if (nb > 9)
-	{
-		size += ft_printchar('a' + nb - 10);
-	}
-	else
-	{
-		size += ft_printchar((nb + '0'));
-	}
-	return (size);
+		size = ft_printhex(nb / 16);
+	if (size < 0)
+		return (-1);
+	last = nb % 16 + '0';
+	if (nb % 16 > 9)
+		last = nb % 16 - 10 + 'a';
+	if (ft_printchar(last) < 0)
+		return (-1);
+	return (size + 1);
 }

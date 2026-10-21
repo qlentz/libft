@@ -12,30 +12,39 @@
 
 #include "libft.h"
 
+static unsigned int	read_integer(const char *str, unsigned int limit)
+{
+	unsigned int	value;
+	unsigned int	digit;
+
+	value = 0;
+	while (ft_isdigit(*str))
+	{
+		digit = *str - '0';
+		if (value > (limit - digit) / 10)
+			return (limit);
+		value = value * 10 + digit;
+		str++;
+	}
+	return (value);
+}
+
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	result;
-	int	sign;
+	unsigned int	value;
+	int				sign;
 
-	i = 0;
-	result = 0;
+	if (!str)
+		return (0);
+	while (ft_isspace(*str))
+		str++;
 	sign = 1;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
-		|| str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result *= 10;
-		result += (str[i] - '0');
-		i++;
-	}
-	result *= sign;
-	return (result);
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	value = read_integer(str, (unsigned int)INT_MAX + (sign < 0));
+	if (sign < 0 && value > INT_MAX)
+		return (INT_MIN);
+	return ((int)value * sign);
 }

@@ -14,24 +14,21 @@
 
 int	ft_printnbr(int n)
 {
-	long int	nb;
-	int			size;
+	unsigned int	nb;
+	int				sign;
+	int				size;
 
 	nb = n;
-	size = 0;
-	if (nb < 0)
+	sign = 0;
+	if (n < 0)
 	{
-		size += ft_printchar('-');
-		nb *= -1;
+		nb = 0U - nb;
+		sign = ft_printchar('-');
+		if (sign < 0)
+			return (-1);
 	}
-	if (nb > 9)
-	{
-		size += ft_printnbr((nb / 10));
-		size += ft_printnbr((nb % 10));
-	}
-	else
-	{
-		size += ft_printchar((nb + '0'));
-	}
-	return (size);
+	size = ft_printunbr(nb);
+	if (size < 0)
+		return (-1);
+	return (size + sign);
 }

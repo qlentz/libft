@@ -14,6 +14,10 @@
 
 int	ft_printchar(int c)
 {
-	write(1, &c, 1);
+	unsigned char	byte;
+
+	byte = c;
+	if (write(1, &byte, 1) != 1)
+		return (-1);
 	return (1);
 }

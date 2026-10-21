@@ -12,46 +12,49 @@
 
 #include "libft.h"
 
-static int	ft_printarg(va_list args, char format)
+static int	ft_printarg(va_list *args, char format)
 {
-	int	size;
-
-	size = 0;
 	if (format == 'd' || format == 'i')
-		size += ft_printnbr(va_arg(args, int));
-	else if (format == 's')
-		size += ft_printstr(va_arg(args, char *));
-	else if (format == 'c')
-		size += ft_printchar(va_arg(args, int));
-	else if (format == 'x')
-		size += ft_printhex(va_arg(args, unsigned int));
-	else if (format == 'X')
-		size += ft_printhexcap(va_arg(args, unsigned int));
-	else if (format == '%')
-		size += ft_printchar('%');
-	else if (format == 'u')
-		size += ft_printunbr(va_arg(args, unsigned int));
-	else if (format == 'p')
-		size += ft_printptr(va_arg(args, unsigned long));
-	return (size);
+		return (ft_printnbr(va_arg(*args, int)));
+	if (format == 's')
+		return (ft_printstr(va_arg(*args, char *)));
+	if (format == 'c')
+		return (ft_printchar(va_arg(*args, int)));
+	if (format == 'x')
+		return (ft_printhex(va_arg(*args, unsigned int)));
+	if (format == 'X')
+		return (ft_printhexcap(va_arg(*args, unsigned int)));
+	if (format == '%')
+		return (ft_printchar('%'));
+	if (format == 'u')
+		return (ft_printunbr(va_arg(*args, unsigned int)));
+	if (format == 'p')
+		return (ft_printptr((unsigned long)va_arg(*args, void *)));
+	return (-1);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
 	int		size;
+	int		printed;
 
+	if (!str)
+		return (-1);
 	size = 0;
 	va_start(args, str);
 	while (*str)
 	{
 		if (*str == '%')
-		{
-			size += ft_printarg(args, *(str + 1));
-			str++;
-		}
+			printed = ft_printarg(&args, *++str);
 		else
-			size += ft_printchar(*str);
+			printed = ft_printchar(*str);
+		if (printed < 0 || size > INT_MAX - printed)
+		{
+			size = -1;
+			break ;
+		}
+		size += printed;
 		str++;
 	}
 	va_end(args);

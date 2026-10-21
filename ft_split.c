@@ -12,72 +12,70 @@
 
 #include "libft.h"
 
-static int	ft_nbwords(char const *s, char c)
+static size_t	count_words(const char *s, char c)
 {
-	int	count;
+	size_t	count;
 
 	count = 0;
 	while (*s)
 	{
-		while (*s == c && *s)
+		while (*s && *s == c)
 			s++;
-		if (*s != c && *s)
+		if (*s)
 			count++;
-		while (*s != c && *s)
+		while (*s && *s != c)
 			s++;
 	}
 	return (count);
 }
 
-static size_t	ft_wordlen(char const *s, char c)
-{
-	size_t	len;
-
-	len = 0;
-	while (*s && *s != c)
-	{
-		len++;
-		s++;
-	}
-	return (len);
-}
-
-static char	*ft_newword(char const *s, size_t len)
+static char	*new_word(const char *s, size_t len)
 {
 	char	*word;
-	int		i;
 
-	i = 0;
-	word = (char *)malloc(sizeof(char) * len + 1);
+	word = malloc(len + 1);
 	if (!word)
 		return (NULL);
-	while (i < (int)len)
-	{
-		word[i] = s[i];
-		i++;
-	}
-	word[i] = 0;
+	ft_memcpy(word, s, len);
+	word[len] = '\0';
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+static char	**fill_words(char **words, const char *s, char c)
 {
-	char	**tab;
-	int		i;
+	size_t	count;
+	size_t	len;
 
-	i = 0;
-	tab = (char **)malloc(sizeof(char *) * (ft_nbwords(s, c) + 1));
-	if (!s || !tab)
-		return (NULL);
+	count = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
 			s++;
-		if (*s != c && *s)
-			tab[i++] = ft_newword(s, ft_wordlen(s, c));
-		while (*s && *s != c)
-			s++;
+		if (!*s)
+			break ;
+		len = 0;
+		while (s[len] && s[len] != c)
+			len++;
+		words[count] = new_word(s, len);
+		if (!words[count])
+		{
+			ft_free_tab(words);
+			return (NULL);
+		}
+		count++;
+		s += len;
 	}
-	tab[i] = NULL;
-	return (tab);
+	return (words);
+}
+
+char	**ft_split(const char *s, char c)
+{
+	char	**words;
+
+	if (!s)
+		return (NULL);
+	words = ft_calloc(count_words(s, c) + 1, sizeof(char *));
+	if (!words)
+		return (NULL);
+	return (fill_words(words, s, c));
 }

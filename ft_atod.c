@@ -12,64 +12,43 @@
 
 #include "libft.h"
 
-static double	pre_point(const char *str)
+static double	fractional_part(const char *str)
 {
-	double	d;
+	double	value;
+	double	place;
 
-	d = 0.0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-')
-		str++;
-	while (*str && *str <= '9' && *str >= '0')
+	value = 0.0;
+	place = 0.1;
+	while (ft_isdigit(*str))
 	{
-		d *= 10;
-		d += *str - '0';
+		value += (*str - '0') * place;
+		place *= 0.1;
 		str++;
 	}
-	return (d);
-}
-
-static double	after_point(const char *str)
-{
-	double	d2;
-
-	d2 = 0.0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-')
-		str++;
-	while (*str && *str <= '9' && *str >= '0')
-		str++;
-	if (*str == '.')
-		str++;
-	while (*str && *str <= '9' && *str >= '0')
-		str++;
-	str--;
-	while (*str && *str <= '9' && *str >= '0')
-	{
-		d2 += *str - '0';
-		d2 /= 10;
-		str--;
-	}
-	return (d2);
+	return (value);
 }
 
 double	ft_atod(const char *str)
 {
-	double	d;
-	double	d2;
+	double	value;
 	int		sign;
 
-	sign = 1;
-	d = pre_point(str);
-	d2 = after_point(str);
+	if (!str)
+		return (0.0);
 	while (ft_isspace(*str))
 		str++;
+	sign = 1;
 	if (*str == '-')
-	{
+		sign = -1;
+	if (*str == '-' || *str == '+')
 		str++;
-		sign *= -1;
+	value = 0.0;
+	while (ft_isdigit(*str))
+	{
+		value = value * 10 + (*str - '0');
+		str++;
 	}
-	return (sign * (d + d2));
+	if (*str == '.')
+		value += fractional_part(str + 1);
+	return (sign * value);
 }

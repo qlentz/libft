@@ -12,17 +12,14 @@
 
 #include "libft.h"
 
-int	ft_printstr(char const *s)
+int	ft_printstr(const char *s)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
 	if (!s)
-		return (write(1, "(null)", 6));
-	while (s[i])
-	{
-		ft_printchar(s[i]);
-		i++;
-	}
-	return (i);
+		s = "(null)";
+	len = ft_strlen(s);
+	if (len > INT_MAX || write(1, s, len) != (ssize_t)len)
+		return (-1);
+	return ((int)len);
 }

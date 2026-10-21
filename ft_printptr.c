@@ -14,18 +14,14 @@
 
 int	ft_printptr(unsigned long n)
 {
-	int		size;
+	int	size;
 
-	size = 0;
-	if (n == 0)
-	{
-		size += ft_printstr("0x0");
-		return (size);
-	}
-	else
-	{
-		size += ft_printstr("0x");
-		size += ft_printhex(n);
-	}
-	return (size);
+	if (!n)
+		return (ft_printstr("(nil)"));
+	if (ft_printstr("0x") < 0)
+		return (-1);
+	size = ft_printhex(n);
+	if (size < 0)
+		return (-1);
+	return (size + 2);
 }

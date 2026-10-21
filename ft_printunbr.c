@@ -14,17 +14,12 @@
 
 int	ft_printunbr(unsigned int nb)
 {
-	int		size;
+	int	size;
 
 	size = 0;
 	if (nb > 9)
-	{
-		size += ft_printnbr((nb / 10));
-		size += ft_printnbr((nb % 10));
-	}
-	else
-	{
-		size += ft_printchar((nb + '0'));
-	}
-	return (size);
+		size = ft_printunbr(nb / 10);
+	if (size < 0 || ft_printchar(nb % 10 + '0') < 0)
+		return (-1);
+	return (size + 1);
 }
